@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sobreMi } from "../data/sobreMi";
+import { perfil } from "../data/perfil";
+---
+
+<BaseLayout title="Sobre mí">
+  <section class="page-intro card">
+    <h1>Sobre mí</h1>
+    <p class="sobre-mi__guion"><span class="prompt">$</span> {sobreMi.guionConsola}</p>
+  </section>
+
+  <div class="sobre-mi">
+    <div class="sobre-mi__fila sobre-mi__fila--invertida">
+      <div class="sobre-mi__foto">
+        <img src={sobreMi.fotoHistoria.src} alt={sobreMi.fotoHistoria.alt} />
+      </div>
+      <div class="sobre-mi__texto">
+        {sobreMi.historia.map((parrafo) => <p>{parrafo}</p>)}
+        <p class="muted">Más detalle, puesto por puesto, en <a class="link-arrow" href="/trayectoria">trayectoria →</a></p>
+      </div>
+    </div>
+
+    <div class="sobre-mi__fila">
+      <div class="sobre-mi__foto">
+        <img src={sobreMi.fotoAficiones.src} alt={sobreMi.fotoAficiones.alt} />
+      </div>
+      <div class="sobre-mi__texto">
+        {sobreMi.aficiones.map((parrafo) => <p>{parrafo}</p>)}
+      </div>
+    </div>
+  </div>
+
+  <section class="section sobre-mi__cierre card">
+    <p>{perfil.ubicacion} · {perfil.disponibilidad} · {perfil.idiomas}</p>
+    <p>{perfil.interesSectorial}</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href={`mailto:${perfil.email}`}>{perfil.email}</a>
+      <a class="btn" href={perfil.cv}>CV.pdf</a>
+    </div>
+  </section>
+</BaseLayout>

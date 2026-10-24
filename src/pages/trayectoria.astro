@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { trayectoria, formatearPeriodo, numerarFunciones } from "../data/experiencia";
+
+const numeracion = numerarFunciones(trayectoria);
+---
+
+<BaseLayout title="Trayectoria">
+  <section class="page-intro card">
+    <h1>Trayectoria</h1>
+  </section>
+
+  <div class="spec-trayectoria">
+    {
+      trayectoria.map((puesto, indicePuesto) => (
+        <article class="spec-puesto">
+          <header class="spec-puesto__cabecera">
+            <h2 class="spec-puesto__nombre">
+              <span class="spec-puesto__mark" aria-hidden="true">## </span>{puesto.nombreCv}
+            </h2>
+            <p class="spec-puesto__meta">
+              {puesto.organizacion} · {formatearPeriodo(puesto.anioInicio, puesto.anioFin)}
+            </p>
+          </header>
+
+          {puesto.metadatos && (
+            <dl class="spec-puesto__metadatos">
+              {puesto.metadatos.rol && (
+                <>
+                  <dt>
+                    <span class="spec-puesto__mark" aria-hidden="true">// </span>rol
+                  </dt>
+                  <dd>{puesto.metadatos.rol}</dd>
+                </>
+              )}
+              {puesto.metadatos.misiones && (
+                <>
+                  <dt>
+                    <span class="spec-puesto__mark" aria-hidden="true">// </span>misiones
+                  </dt>
+                  <dd>
+                    <ul>
+                      {puesto.metadatos.misiones.map((mision) => (
+                        <li>{mision.lugar}, {mision.anio}</li>
+                      ))}
+                    </ul>
+                  </dd>
+                </>
+              )}
+              {puesto.metadatos.condecoraciones && (
+                <>
+                  <dt>
+                    <span class="spec-puesto__mark" aria-hidden="true">// </span>condecoraciones
+                  </dt>
+                  <dd>{puesto.metadatos.condecoraciones.join(" · ")}</dd>
+                </>
+              )}
+            </dl>
+          )}
+
+          <dl class="spec-puesto__funciones">
+            {puesto.funciones.map((funcion, indiceFuncion) => (
+              <div class="spec-funcion">
+                <dt class="spec-funcion__original">
+                  <span class="spec-funcion__etiqueta">
+                    RF-{numeracion[indicePuesto][indiceFuncion]}
+                  </span>
+                  {funcion.original}
+                </dt>
+                <dd class="spec-funcion__traslado">
+                  <span class="visually-hidden">equivale a </span>
+                  <span aria-hidden="true">→ </span>{funcion.traslado}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          {puesto.fraseCierre && <p class="spec-puesto__cierre">{puesto.fraseCierre}</p>}
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>

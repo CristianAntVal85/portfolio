@@ -1,0 +1,17 @@
+---
+import type { Proyecto } from "../data/proyectos";
+
+type Props = Proyecto;
+
+const { titulo, descripcion, stack, href } = Astro.props;
+---
+
+<article class="project-card card">
+  <div class="project-card__media" aria-hidden="true">
+    <span>[CAPTURA 16:10]</span>
+  </div>
+  <h3 class="project-card__title">{titulo}</h3>
+  <p class="project-card__desc">{descripcion}</p>
+  <p class="project-card__stack">{stack}</p>
+  <a class="link-arrow" href={href}>código →</a>
+</article>

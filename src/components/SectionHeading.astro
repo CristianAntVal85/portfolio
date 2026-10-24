@@ -1,0 +1,16 @@
+---
+interface Props {
+  etiqueta: string;
+  href?: string;
+  textoEnlace?: string;
+}
+
+const { etiqueta, href, textoEnlace } = Astro.props;
+---
+
+<div class="section-heading">
+  <h2><span class="section-heading__mark" aria-hidden="true">//</span> {etiqueta}</h2>
+  {href && textoEnlace && (
+    <a class="link-arrow" href={href}>{textoEnlace}</a>
+  )}
+</div>

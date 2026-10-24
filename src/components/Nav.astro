@@ -1,0 +1,24 @@
+---
+const enlaces = [
+  { href: "/proyectos", etiqueta: "./proyectos" },
+  { href: "/sobre-mi", etiqueta: "./sobre-mi" },
+  { href: "/trayectoria", etiqueta: "./trayectoria" },
+  { href: "/metodo", etiqueta: "./metodo" },
+];
+
+const rutaActual = Astro.url.pathname;
+---
+
+<nav class="nav" aria-label="Navegación principal">
+  <ul>
+    {
+      enlaces.map((enlace) => (
+        <li>
+          <a href={enlace.href} aria-current={rutaActual === enlace.href ? "page" : undefined}>
+            {enlace.etiqueta}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
